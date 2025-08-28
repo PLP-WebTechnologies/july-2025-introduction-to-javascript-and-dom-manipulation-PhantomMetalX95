@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Interactive Playground</title>
+    <style>
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --accent: #e74c3c;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --text: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        h1 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--primary);
+            font-weight: normal;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        h3 {
+            color: var(--primary);
+            margin: 1rem 0 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: var(--dark);
+            transform: scale(1.05);
+        }
+
+        .result {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            min-height: 50px;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .user-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .user-list li {
+            padding: 0.5rem;
+            background: var(--light);
+            margin-bottom: 0.5rem;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-list button {
+            width: auto;
+            padding: 0.3rem 0.8rem;
+            margin-bottom: 0;
+        }
+
+        .dom-element {
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 5px;
+            margin: 1rem 0;
+            transition: var(--transition);
+        }
+
+        .color-box {
+            width: 100px;
+            height: 100px;
+            background: var(--primary);
+            margin: 1rem 0;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: var(--dark);
+            color: white;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>JavaScript Interactive Playground</h1>
+            <p class="subtitle">Learn JavaScript concepts through interactive examples</p>
+        </header>
+
+        <div class="grid">
+            <!-- Part 1: JavaScript Basics -->
+            <div class="card">
+                <h2>Part 1: JavaScript Basics</h2>
+                <p>Variables, data types, operators, and conditionals</p>
+                
+                <div class="input-group">
+                    <label for="userAge">Enter your age:</label>
+                    <input type="number" id="userAge" placeholder="Enter your age">
+                </div>
+                
+                <button onclick="checkAge()">Check Eligibility</button>
+                
+                <div class="result" id="ageResult">
+                    Result will appear here
+                </div>
+            </div>
+
+            <!-- Part 2: JavaScript Functions -->
+            <div class="card">
+                <h2>Part 2: JavaScript Functions</h2>
+                <p>Reusable blocks of logic</p>
+                
+                <div class="input-group">
+                    <label for="num1">Enter first number:</label>
+                    <input type="number" id="num1" placeholder="First number">
+                </div>
+                
+                <div class="input-group">
+                    <label for="num2">Enter second number:</label>
+                    <input type="number" id="num2" placeholder="Second number">
+                </div>
+                
+                <div class="input-group">
+                    <label for="operation">Select operation:</label>
+                    <select id="operation">
+                        <option value="add">Addition</option>
+                        <option value="subtract">Subtraction</option>
+                        <option value="multiply">Multiplication</option>
+                        <option value="divide">Division</option>
+                    </select>
+                </div>
+                
+                <button onclick="calculate()">Calculate</button>
+                
+                <div class="result" id="calcResult">
+                    Result will appear here
+                </div>
+            </div>
+
+            <!-- Part 3: JavaScript Loops -->
+            <div class="card">
+                <h2>Part 3: JavaScript Loops</h2>
+                <p>Repetition and iteration</p>
+                
+                <div class="input-group">
+                    <label for="loopCount">How many numbers to generate?</label>
+                    <input type="number" id="loopCount" placeholder="Enter a number" min="1" max="20" value="5">
+                </div>
+                
+                <button onclick="generateNumbers()">Generate Numbers</button>
+                <button onclick="clearNumbers()">Clear List</button>
+                
+                <div class="result">
+                    <h3>Generated Numbers:</h3>
+                    <ul id="numberList" class="user-list">
+                        <!-- Numbers will be added here -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Part 4: DOM Manipulation -->
+            <div class="card">
+                <h2>Part 4: DOM Manipulation</h2>
+                <p>Making the page interactive</p>
+                
+                <button onclick="changeContent()">Change Content</button>
+                <button onclick="toggleColor()">Toggle Color</button>
+                <button onclick="addItem()">Add List Item</button>
+                
+                <div class="dom-element" id="contentElement">
+                    This is a DOM element that will be manipulated.
+                </div>
+                
+                <div class="color-box" id="colorBox"></div>
+                
+                <div class="result">
+                    <h3>Dynamic List:</h3>
+                    <ul id="dynamicList">
+                        <li>Initial item</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>JavaScript Interactive Playground - Demonstrating JavaScript Fundamentals</p>
+        </footer>
+    </div>
+
+    <script>
+        // Part 1: JavaScript Basics - Variables, Data Types, Operators, and Conditionals
+        function checkAge() {
+            // Get user input
+            const ageInput = document.getElementById('userAge');
+            const age = parseInt(ageInput.value);
+            const resultElement = document.getElementById('ageResult');
+            
+            // Validate input
+            if (isNaN(age)) {
+                resultElement.innerHTML = '<span class="highlight">Please enter a valid age!</span>';
+                return;
+            }
+            
+            // Using conditionals to make decisions
+            if (age < 0) {
+                resultElement.innerHTML = '<span class="highlight">Age cannot be negative!</span>';
+            } else if (age < 13) {
+                resultElement.innerHTML = `You are <span class="highlight">${age}</span> years old. You're a child.`;
+            } else if (age < 18) {
+                resultElement.innerHTML = `You are <span class="highlight">${age}</span> years old. You're a teenager.`;
+            } else if (age < 65) {
+                resultElement.innerHTML = `You are <span class="highlight">${age}</span> years old. You're an adult.`;
+            } else {
+                resultElement.innerHTML = `You are <span class="highlight">${age}</span> years old. You're a senior.`;
+            }
+        }
+
+        // Part 2: JavaScript Functions - Reusable blocks of logic
+        // Function to perform calculations
+        function calculate() {
+            // Get user inputs
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            const operation = document.getElementById('operation').value;
+            const resultElement = document.getElementById('calcResult');
+            
+            // Validate inputs
+            if (isNaN(num1) || isNaN(num2)) {
+                resultElement.innerHTML = '<span class="highlight">Please enter valid numbers!</span>';
+                return;
+            }
+            
+            let result;
+            let operator;
+            
+            // Perform calculation based on selected operation
+            switch(operation) {
+                case 'add':
+                    result = addNumbers(num1, num2);
+                    operator = '+';
+                    break;
+                case 'subtract':
+                    result = subtractNumbers(num1, num2);
+                    operator = '-';
+                    break;
+                case 'multiply':
+                    result = multiplyNumbers(num1, num2);
+                    operator = '×';
+                    break;
+                case 'divide':
+                    if (num2 === 0) {
+                        resultElement.innerHTML = '<span class="highlight">Cannot divide by zero!</span>';
+                        return;
+                    }
+                    result = divideNumbers(num1, num2);
+                    operator = '÷';
+                    break;
+                default:
+                    result = 'Invalid operation';
+            }
+            
+            // Display the result
+            resultElement.innerHTML = `
+                <span class="highlight">${num1} ${operator} ${num2} = ${result}</span>
+            `;
+        }
+        
+        // Individual math functions
+        function addNumbers(a, b) {
+            return a + b;
+        }
+        
+        function subtractNumbers(a, b) {
+            return a - b;
+        }
+        
+        function multiplyNumbers(a, b) {
+            return a * b;
+        }
+        
+        function divideNumbers(a, b) {
+            return a / b;
+        }
+
+        // Part 3: JavaScript Loops - Repetition and iteration
+        function generateNumbers() {
+            const countInput = document.getElementById('loopCount');
+            const count = parseInt(countInput.value);
+            const numberList = document.getElementById('numberList');
+            
+            // Validate input
+            if (isNaN(count) || count < 1 || count > 20) {
+                alert('Please enter a number between 1 and 20');
+                return;
+            }
+            
+            // Clear previous list
+            numberList.innerHTML = '';
+            
+            // Using a for loop to generate numbers
+            for (let i = 1; i <= count; i++) {
+                const listItem = document.createElement('li');
+                
+                // Add different content based on number properties
+                if (i % 3 === 0 && i % 5 === 0) {
+                    listItem.textContent = `${i} - FizzBuzz`;
+                    listItem.style.color = '#e74c3c';
+                } else if (i % 3 === 0) {
+                    listItem.textContent = `${i} - Fizz`;
+                    listItem.style.color = '#3498db';
+                } else if (i % 5 === 0) {
+                    listItem.textContent = `${i} - Buzz`;
+                    listItem.style.color = '#2ecc71';
+                } else {
+                    listItem.textContent = i;
+                }
+                
+                numberList.appendChild(listItem);
+            }
+        }
+        
+        function clearNumbers() {
+            const numberList = document.getElementById('numberList');
+            // Using while loop to remove all children
+            while (numberList.firstChild) {
+                numberList.removeChild(numberList.firstChild);
+            }
+        }
+
+        // Part 4: DOM Manipulation - Making the page interactive
+        let colorChanged = false;
+        let itemCount = 1;
+        
+        function changeContent() {
+            const contentElement = document.getElementById('contentElement');
+            const randomNum = Math.floor(Math.random() * 100) + 1;
+            
+            contentElement.innerHTML = `
+                Content changed at: <span class="highlight">${new Date().toLocaleTimeString()}</span><br>
+                Random number: <span class="highlight">${randomNum}</span>
+            `;
+        }
+        
+        function toggleColor() {
+            const colorBox = document.getElementById('colorBox');
+            colorChanged = !colorChanged;
+            
+            if (colorChanged) {
+                colorBox.style.backgroundColor = '#e74c3c';
+                colorBox.style.borderRadius = '50%';
+                colorBox.style.transform = 'rotate(45deg)';
+            } else {
+                colorBox.style.backgroundColor = '#3498db';
+                colorBox.style.borderRadius = '5px';
+                colorBox.style.transform = 'rotate(0deg)';
+            }
+        }
+        
+        function addItem() {
+            const dynamicList = document.getElementById('dynamicList');
+            itemCount++;
+            
+            const newItem = document.createElement('li');
+            newItem.textContent = `Item ${itemCount} added at ${new Date().toLocaleTimeString()}`;
+            
+            // Add click event to remove item
+            newItem.onclick = function() {
+                dynamicList.removeChild(this);
+            };
+            
+            dynamicList.appendChild(newItem);
+        }
+    </script>
+</body>
+</html>
